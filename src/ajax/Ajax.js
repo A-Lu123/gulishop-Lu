@@ -8,7 +8,16 @@ const instance = axios.create({
 })
 
 instance.interceptors.request.use(config=>{
-    return config
+    NProgress.start()
+    return config;
+})
+instance.interceptors.response.use(response=>{
+    NProgress.done()
+    return response.data
+},error=>{
+    NProgress.done()
+    alert('请求失败'+error.message || '未知错误')
+    return new Promise(()=>{})
 })
 
-instance.interceptors
+export default instance

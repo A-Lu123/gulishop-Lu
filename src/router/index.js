@@ -11,9 +11,9 @@ import Register from '@/pages/Register'
 const originPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function (location,onResolved,onRejected) {
     if(onResolved === undefined || onRejected === undefined){
-        return originPush.push.call(this,location).catch(()=>{}) 
+        return originPush.call(this,location).catch(()=>{}) 
     }else{
-        return originPush.push.call(this,onResolved,onRejected)
+        return originPush.call(this,onResolved,onRejected)
     }
 }
 

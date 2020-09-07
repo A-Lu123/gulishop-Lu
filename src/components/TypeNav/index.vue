@@ -1698,7 +1698,7 @@ export default {
 </script>
 
 <style scoped lang='less'>
- .type-nav {
+  .type-nav {
         border-bottom: 2px solid #e1251b;
 
         .container {

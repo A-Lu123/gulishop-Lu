@@ -66,11 +66,11 @@ export default {
                 keyword:this.keyword || undefined
             },
             query:{
-                keyword2:this.keyword.toUpperCase() || undefined
+                keyword2:this.keyword.toUpperCase()
             }
         }
         this.$router.push(location)
-        this.$router.push(location).catch(()=>{})
+        // this.$router.push(location).catch(()=>{})
         // this.$router.push({
         //     name:'search',
         //     params:{
