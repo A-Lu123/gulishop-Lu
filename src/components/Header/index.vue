@@ -44,7 +44,7 @@
                 </div>
             </div>
         </header>
-        <TypeNav></TypeNav>
+        <!-- <TypeNav></TypeNav> -->
   </div>
 </template>
 
