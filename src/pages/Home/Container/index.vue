@@ -6,8 +6,8 @@
                     <!--banner轮播-->
                     <div class="swiper-container" id="mySwiper">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <img src="./images/banner1.jpg" />
+                            <div class="swiper-slide" v-for="(banner, index) in BannerList" :key="banner.id">
+                                <img :src="banner.imgUrl" />
                             </div>
                             <!-- <div class="swiper-slide">
                                 <img src="./images/banner2.jpg" />
@@ -112,8 +112,22 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'Container',
+  mounted(){
+    this.getBannerList()
+  },
+  methods:{
+    getBannerList(){
+      this.$store.dispatch('getBannerList')
+    }
+  },
+  computed: {
+      ...mapState({
+         BannerList:state =>state.home.bannerList
+      })
+  },
 }
 </script>
 

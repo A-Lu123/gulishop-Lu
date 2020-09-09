@@ -1,5 +1,6 @@
 
 import Ajax from '@/ajax/Ajax'
+import mockAjax from '@/ajax/mockAjax'
 
 //请求三级分类列表数据函数
 ///api/product/getBaseCategoryList 请求地址
@@ -15,3 +16,16 @@ export const reqCategoryList = () => {
     })
   }
   
+  export const reqBannerList = () => {
+    return mockAjax({
+      url:'/banner',
+      method:'get'
+    })
+  }
+
+ export const reqFloorList = () => {
+  return mockAjax({
+    url:'/floor',
+    method:'get'
+  })
+}

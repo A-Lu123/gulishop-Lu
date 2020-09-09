@@ -45,9 +45,9 @@ export default new VueRouter({
             name:'search',
             // props:true
             // props:{name:'李云龙'}
-            props(route){
-                return {keyword:route.params.keyword,keyword2:route.query.keyword2}
-            }
+            // props(route){
+            //     return {keyword:route.params.keyword,keyword2:route.query.keyword2}
+            // }
         },
         {
             path:'/register',

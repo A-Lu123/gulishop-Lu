@@ -65,9 +65,14 @@ export default {
             params:{
                 keyword:this.keyword || undefined
             },
-            query:{
-                keyword2:this.keyword.toUpperCase()
-            }
+            // query:{
+            //     keyword2:this.keyword.toUpperCase()
+            // }
+        }
+
+        let {query} = this.$route
+        if(query){
+            location.query = query
         }
         this.$router.push(location)
         // this.$router.push(location).catch(()=>{})

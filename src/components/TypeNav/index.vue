@@ -1,9 +1,11 @@
 <template>
   <div class="type-nav">
     <div class="container">
-      <div @mouseleave="currentIndex = -1">
+      <div @mouseleave="moveOutDiv" @mouseenter="moveInDiv">
         <h2 class="all">全部商品分类</h2>
-        <div class="sort">
+        <transition name="show">
+        
+        <div class="sort" v-show="isShow">
           <div class="all-sort-list2" @click="toSearch">
             <div
               class="item bo"
@@ -48,6 +50,7 @@
             </div>
           </div>
         </div>
+        </transition>
       </div>
       <nav class="nav">
         <a href="###">服装城</a>
@@ -73,15 +76,19 @@ export default {
   data() {
     return {
       currentIndex: -1,
+      isShow:true
     };
   },
   mounted() {
-    this.getCategoryList();
+    // this.getCategoryList();
+    if(this.$route.path !== '/home'){
+      this.isShow = false
+    }
   },
   methods: {
-    getCategoryList() {
-      this.$store.dispatch("getCategoryList");
-    },
+    // getCategoryList() {
+    //   this.$store.dispatch("getCategoryList");
+    // },
     // moveIn(index) {
     //   this.currentIndex = index;
     // },
@@ -115,8 +122,22 @@ export default {
             }
 
             location.query = query
+
+             let {params} = this.$route
+        if(params){
+            location.params = params
+        }
             this.$router.push(location)
         }
+    },
+    moveInDiv(){
+      this.isShow = true
+    },
+    moveOutDiv(){
+      this.currentIndex = -1
+      if(this.$route.path !== '/home'){
+        this.isShow = false
+      }
     }
   },
   computed: {
@@ -167,6 +188,17 @@ export default {
       position: absolute;
       background: #fafafa;
       z-index: 999;
+      &.show-enter{
+        opacity: 0;
+        height: 0;
+      }
+      &.show-enter-active{
+        transition: all .5s;
+      }
+      &.show-enter-to{
+        opacity: 1;
+        height: 700px;
+      }
 
       .all-sort-list2 {
         .item {

@@ -6,7 +6,7 @@
     <Rank></Rank>
     <Like></Like>
     <Floor></Floor>
-    <Floor></Floor>
+    <!-- <Floor></Floor> -->
     <Brand></Brand>
   </div>
 </template>
@@ -18,8 +18,10 @@ import Rank from './Rank'
 import Like from './Like'
 import Floor from './Floor'
 import Brand from './Brand'
+import { mapState } from 'vuex'
 export default {
   name: 'Home',
+
   components:{
     Container,
     Recommend,
@@ -27,7 +29,20 @@ export default {
     Floor,
     Like,
     Brand
-  }
+  },
+  mounted(){
+    this.getFloorList()
+  },
+  methods:{
+    getFloorList(){
+      this.$store.dispatch('getFloorList')
+    }
+  },
+  computed: {
+    ...mapState({
+      FloorList:state=>state.home.floorList
+    })
+  },
 }
 </script>
 
