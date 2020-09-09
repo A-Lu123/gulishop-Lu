@@ -9,6 +9,9 @@ import router from '@/router'
 import TypeNav from '@/components/TypeNav'
 Vue.component('TypeNav',TypeNav)
 
+import SliderLoop from '@/components/SliderLoop'
+Vue.component('SliderLoop',SliderLoop)
+
 // import {reqCategoryList} from '@/api'
 // reqCategoryList()
 
