@@ -14,6 +14,9 @@ Vue.component('TypeNav',TypeNav)
 import SliderLoop from '@/components/SliderLoop'
 Vue.component('SliderLoop',SliderLoop)
 
+import Pagination from '@/components/pagination'
+Vue.component('Pagination',Pagination)
+
 // import {reqCategoryList} from '@/api'
 // reqCategoryList()
 

@@ -114,35 +114,13 @@
              
             </ul>
           </div>
-          <div class="fr page">
-            <div class="sui-pagination clearfix">
-              <ul>
-                <li class="prev disabled">
-                  <a href="#">«上一页</a>
-                </li>
-                <li class="active">
-                  <a href="#">1</a>
-                </li>
-                <li>
-                  <a href="#">2</a>
-                </li>
-                <li>
-                  <a href="#">3</a>
-                </li>
-                <li>
-                  <a href="#">4</a>
-                </li>
-                <li>
-                  <a href="#">5</a>
-                </li>
-                <li class="dotted"><span>...</span></li>
-                <li class="next">
-                  <a href="#">下一页»</a>
-                </li>
-              </ul>
-              <div><span>共10页&nbsp;</span></div>
-            </div>
-          </div>
+          <Pagination
+          :currentNum="searchParams.pageNo"
+          :continueNum="5"
+          :pageSize="searchParams.pageSize"
+          :total="goodsListInfo.total"
+          @changePageNum="changePageNum"
+          ></Pagination>
         </div>
       </div>
     </div>
@@ -151,7 +129,7 @@
 
 <script>
 
-import { mapGetters } from 'vuex'
+  import { mapGetters, mapState } from 'vuex'
   import SearchSelector from './SearchSelector/SearchSelector'
   export default {
     name: 'Search',
@@ -171,7 +149,7 @@ import { mapGetters } from 'vuex'
         //代表的是用户发送请求默认的参数  默认获取第几页  默认排序规则是什么  默认每页个数
         order: "1:desc",
         pageNo: 1,
-        pageSize: 2,
+        pageSize: 1,
       },
       }
     },
@@ -227,21 +205,25 @@ import { mapGetters } from 'vuex'
       this.searchParams = searchParams
       },
       removeCategoryName(){
+        this.searchParams.pageNo = 1
         this.searchParams.categoryName = undefined;
         this.$router.replace({name:'search',params:this.$route.params})
         //  this.getGoodsListInfo()
       },
       removeKeyword(){
+          this.searchParams.pageNo = 1
         this.searchParams.keyword = undefined;
         this.$router.replace({name:'search',query:this.$route.query})
         this.$bus.$emit('clearKeyword')
         //  this.getGoodsListInfo()
       },
       searchForTrademark(trademark){
+        this.searchParams.pageNo = 1
         this.searchParams.trademark = `${trademark.tmId}:${trademark.tmName}`
         this.getGoodsListInfo()
       },
       removeTrademark(){
+        this.searchParams.pageNo = 1
          this.searchParams.trademark= undefined;
          this.getGoodsListInfo()
       },
@@ -250,11 +232,13 @@ import { mapGetters } from 'vuex'
         let result = this.searchParams.props.some(item=>item===prop)
         if(result) return
          console.log(prop);
-      console.log(this.searchParams.props);
+      // console.log(this.searchParams.props);
+        this.searchParams.pageNo = 1
         this.searchParams.props.push(prop)
         this.getGoodsListInfo()
       },
       removeProp(index){
+        this.searchParams.pageNo = 1
         this.searchParams.props.splice(index,1)
         this.getGoodsListInfo()
       },
@@ -267,12 +251,21 @@ import { mapGetters } from 'vuex'
         }else{
           newOrder = `${sortFlag}:desc`
         }
+        this.searchParams.pageNo = 1
         this.searchParams.order = newOrder
+        this.getGoodsListInfo()
+      },
+      changePageNum(page){
+        this.searchParams.pageNo = 1
+        this.searchParams.pageNo = page
         this.getGoodsListInfo()
       }
   },
     computed: {
       ...mapGetters(['goodsList']),
+      ...mapState({
+        goodsListInfo:state=>state.search.goodsListInfo
+      }),
       sortFlag(){
         return this.searchParams.order.split(':')[0]
       },
