@@ -56,6 +56,9 @@ export default {
           keyword:''
       }
   },
+  mounted() {
+      this.$bus.$on('clearKeyword',this.clearKeyword)
+  },
   methods: {
       toSearch(){
         //   this.$router.push('/search')
@@ -74,7 +77,11 @@ export default {
         if(query){
             location.query = query
         }
-        this.$router.push(location)
+        if(this.$route.path !== '/home'){
+            this.$router.replace(location)
+        }else{
+            this.$router.push(location)
+        }
         // this.$router.push(location).catch(()=>{})
         // this.$router.push({
         //     name:'search',
@@ -82,8 +89,12 @@ export default {
         //         keyword:this.keyword || undefined
         //     }
         // })
-      }
+      },
+    clearKeyword(){
+            this.keyword = ''
+    }
   },
+
 }
 </script>
 

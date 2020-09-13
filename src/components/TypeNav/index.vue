@@ -37,9 +37,9 @@
                     <dd>
                       <em v-for="(c3, index) in c2.categoryChild" :key="c3.categoryId">
                           <!-- <router-link :to="{name:'search',query:{categoryName:c3.categoryName,category3Id:c3.categoryId}}">{{c3.categoryName}}</router-link> -->
-                        <a href="javascript"
+                        <a href="javascript:;"
                         :data-categoryName = "c3.categoryName"
-                :data-category3Id = "c3.categoryId"
+                        :data-category3Id = "c3.categoryId"
                         >{{c3.categoryName}}</a>
                          <!-- <a href="javascript:;" @click="$router.push({name:'search',query:{categoryName:c3.categoryName,category3Id:c3.categoryId})">{{c3.categoryName}}</a> -->
                       </em>
@@ -127,7 +127,13 @@ export default {
         if(params){
             location.params = params
         }
+
+             if(this.$route.path !== '/home'){
+            this.$router.replace(location)
+        }else{
             this.$router.push(location)
+        }
+
         }
     },
     moveInDiv(){

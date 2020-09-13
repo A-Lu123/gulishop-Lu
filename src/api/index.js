@@ -29,3 +29,15 @@ export const reqCategoryList = () => {
     method:'get'
   })
 }
+
+
+export const reqGoodsListInfo = (searchParmas) => {
+  return Ajax({
+    url:"/list",
+    method:"post",
+    data:searchParmas
+  })
+}
+
+// reqGoodsListInfo({})
+//若是不传{} 会显示201

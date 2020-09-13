@@ -20,9 +20,9 @@ VueRouter.prototype.push = function (location,onResolved,onRejected) {
 const originReplace = VueRouter.prototype.replace;
 VueRouter.prototype.replace = function (location,onResolved,onRejected) {
     if(onResolved === undefined || onRejected === undefined){
-        return originPush.replace.call(this,location).catch(()=>{})
+        return originReplace.call(this,location).catch(()=>{})
     }else{
-        return originPush.replace.call(this,onResolved,onRejected)
+        return originReplace.call(this,onResolved,onRejected)
     }
 }
 
