@@ -3,7 +3,12 @@ import Login from '@/pages/Login'
 import Search from '@/pages/Search'
 import Register from '@/pages/Register'
 import Detail from '@/pages/Detail'
+import AddCartSuccess from '@/pages/AddCartSuccess'
 export default [
+    {
+        path:'/addCartSuccess',
+        component:AddCartSuccess
+    },
     {
         path:'/detail/:goodsId',
         component:Detail

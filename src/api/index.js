@@ -41,3 +41,17 @@ export const reqGoodsListInfo = (searchParmas) => {
 
 // reqGoodsListInfo({})
 //若是不传{} 会显示201
+
+export const reqGoodsDetailInfo = (skuId) => {
+  return Ajax({
+    url:`/item/${ skuId }`,
+    method:'get'
+  })
+}
+
+export const reqAddOrUpdateShopCart = (skuId,skuNum) =>{
+  return Ajax({
+    url:`/cart/addToCart/${ skuId }/${ skuNum }`,
+    method:'post'
+  })
+}

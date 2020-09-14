@@ -1,8 +1,11 @@
 <template>
-  <div class="swiper-container">
+  <div class="swiper-container" ref="imgSwiper">
     <div class="swiper-wrapper">
-      <div class="swiper-slide">
-        <img src="../images/s1.png">
+      <div class="swiper-slide" v-for="(skuImage,index) in skuImageList" :key="skuImage.id">
+        <img :src="skuImage.imgUrl"
+        :class="{active:index === defaultIndex}"
+        @click="changeDefaultIndex(index)"
+        >
       </div>
     </div>
     <div class="swiper-button-next"></div>
@@ -11,10 +14,46 @@
 </template>
 
 <script>
-
-  import Swiper from 'swiper'
+  import Swiper from "swiper";
+  import "swiper/css/swiper.min.css";
   export default {
     name: "ImageList",
+    props:['skuImageList'],
+    data() {
+      return {
+        defaultIndex:0
+      }
+    },
+    methods: {
+      changeDefaultIndex(index){
+          this.defaultIndex=index
+          this.$bus.$emit('changeDefaultIndex',index)
+      }
+    },
+      watch: {
+    skuImageList: {
+      immediate: true,
+      handler() {
+        this.$nextTick(() => {
+          new Swiper(this.$refs.imgSwiper, {
+            loop: true, // 循环模式选项
+
+            // 如果需要分页器
+            pagination: {
+              el: ".swiper-pagination",
+            },
+            slidesPerView : 5,
+            slidesPerGroup : 5,
+            // 如果需要前进后退按钮
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+          });
+        });
+      },
+    },
+  },
   }
 </script>
 
@@ -43,10 +82,10 @@
           padding: 1px;
         }
 
-        &:hover {
-          border: 2px solid #f60;
-          padding: 1px;
-        }
+        // &:hover {
+        //   border: 2px solid #f60;
+        //   padding: 1px;
+        // }
       }
     }
 

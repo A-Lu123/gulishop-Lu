@@ -34,7 +34,7 @@
     props:['currentNum','continueNum','pageSize','total'],
     computed: {
         totalPageNum(){
-            return (this.total / this.pageSize)
+            return Math.ceil(this.total / this.pageSize)
         },
         startEnd(){
           let { currentNum, continueNum, totalPageNum } = this;
