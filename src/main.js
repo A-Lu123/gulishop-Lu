@@ -3,6 +3,7 @@ import App from '@/App'
 import '@/mock/mockServer'
 
 // import '@/api'
+import * as API from '@/api'
 
 
 Vue.config.productionTip = false;
@@ -29,5 +30,6 @@ new Vue({
   store,
   beforeCreate() {
     Vue.prototype.$bus = this
+    Vue.prototype.$API = API
   },
 })

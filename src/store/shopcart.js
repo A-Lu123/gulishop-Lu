@@ -18,7 +18,7 @@ const actions = {
         }
     },
     
-    //购物车详细信息
+    //购物车 详细信息
     async getShopCartList({commit}){
         let result = await reqShopCartList()
         if(result.code === 200){

@@ -7,17 +7,29 @@
                 <div class="container">
                     <div class="loginList">
                         <p>尚品汇欢迎您！</p>
-                        <p>
+                        <p v-if="$store.state.user.userInfo.name">
+                            <span>请</span>
+                            <!-- <router-link to="/login">登录</router-link> -->
+                            <a href="javascript:;">{{$store.state.user.userInfo.name}}</a>
+                            <!-- <router-link to="register" class="register">免费注册</router-link> -->
+                            <a href="javascript:;" class="register" @click="logout">退出登录</a>
+                            <!-- <a href="###">登录</a> -->
+                            <!-- <a href="###" class="register">免费注册</a> -->
+                        </p>
+                        <p v-else>
                             <span>请</span>
                             <router-link to="/login">登录</router-link>
                             <router-link to="register" class="register">免费注册</router-link>
                             <!-- <a href="###">登录</a> -->
                             <!-- <a href="###" class="register">免费注册</a> -->
                         </p>
+
+                        
                     </div>
                     <div class="typeList">
                         <a href="###">我的订单</a>
-                        <a href="###">我的购物车</a>
+                        <!-- <a href="###">我的购物车</a> -->
+                        <router-link to="/shopcart">我的购物车</router-link>
                         <a href="###">我的尚品汇</a>
                         <a href="###">尚品汇会员</a>
                         <a href="###">企业采购</a>
@@ -60,6 +72,15 @@ export default {
       this.$bus.$on('clearKeyword',this.clearKeyword)
   },
   methods: {
+      async logout(){
+          try {
+            await this.$store.dispatch('userLogout')
+            alert('退出成功')
+            this.$router.push('/')  
+          } catch (error) {
+              alert('退出失败')
+          }
+      },
       toSearch(){
         //   this.$router.push('/search')
         //   this.$router.push('/search/'+this.keyword)

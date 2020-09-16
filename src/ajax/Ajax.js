@@ -14,6 +14,11 @@ instance.interceptors.request.use(config=>{
     if(userTempId){
         config.headers.userTempId = userTempId
     }
+
+    let token = store.state.user.userInfo.token
+    if(token){
+        config.headers.token = token
+    } 
     return config;
 })
 instance.interceptors.response.use(response=>{
