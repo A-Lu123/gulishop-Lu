@@ -129,3 +129,20 @@ export const reqPayInfo = (orderId) => {
     method:'get'
   })
 }
+
+//支付请求
+export const reqOrderStatus = (orderId) => {
+  return Ajax({
+    url:`/payment/weixin/queryPayStatus/${orderId}`,
+    method:'get'
+  })
+}
+
+
+//我的订单
+export const reqMyOrderInfo = (page,limit) => {
+  return Ajax({
+    url:`/order/auth/${page}/${limit}`,
+    method:'get'
+  })
+}

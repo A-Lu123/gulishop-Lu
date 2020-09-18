@@ -15,18 +15,19 @@ Vue.component('TypeNav',TypeNav)
 import SliderLoop from '@/components/SliderLoop'
 Vue.component('SliderLoop',SliderLoop)
 
-import Pagination from '@/components/pagination'
-Vue.component('Pagination',Pagination)
+// import Pagination from '@/components/pagination'
+// Vue.component('Pagination',Pagination)
 
 // import {reqCategoryList} from '@/api'
 // reqCategoryList()
 
 import store from '@/store'
 //element的使用
-import { MessageBox ,Message} from 'element-ui'
+import {MessageBox,Message,Pagination} from 'element-ui'
 Vue.prototype.$msgbox = MessageBox
 Vue.prototype.$message = Message;
 Vue.prototype.$alert = MessageBox.alert;
+Vue.use(Pagination)
 
 
 new Vue({

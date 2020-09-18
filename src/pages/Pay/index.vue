@@ -131,6 +131,7 @@ export default {
   data() {
     return {
       orderInfo: {},
+      OrderStatus:''
     };
   },
   mounted() {
@@ -153,8 +154,42 @@ export default {
         cancelButtonText:'支付中遇到的问题',
         confirmButtonText:'我已成功支付',
         center:true,
-        showClose:false
-      });
+        showClose:false,
+        beforeClose:(actions,instsnce,done)=>{
+          if(actions === 'confirm'){
+            //正确版
+            // if(this.OrderStatus !== '200'){
+            //   this.$message.info('请支付后再操作')
+            // }
+            //后门版
+            clearInterval(this.timer)
+            this.timer = null
+             done()
+             this.$router.push('/paySuccess')
+          }else if(actions === 'cancel'){
+            clearInterval(this.timer)
+            this.timer = null
+            this.$message.success('请联系前台')
+            done()
+          }
+        }
+      })
+      .then(()=>{})
+      .catch(()=>{})
+
+
+      if(!this.timer){
+        this.timer = setInterval(async () => {
+          let result = await this.$API.reqOrderStatus(this.orderInfo.orderId)
+          if(result.code === 200){
+            clearInterval(this.timer)
+            this.timer = null
+            this.$msgbox.close()
+            this.OrderStatus = 200
+            this.$router.push('/paySuccess')
+          }
+        }, 2000);
+      }
     } catch (error) {
           this.$message.error('生成二维码失败')
     }

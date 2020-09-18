@@ -132,7 +132,7 @@
 </template>
 
 <script>
-
+  import Pagination from '@/components/pagination'
   import { mapGetters, mapState } from 'vuex'
   import SearchSelector from './SearchSelector/SearchSelector'
   export default {
@@ -159,6 +159,8 @@
     },
     components: {
       SearchSelector,
+      Pagination,
+      
     },
     beforeMount(){
       // let {category1Id,category2Id,category3Id,categoryName} = this.$route.query
