@@ -22,6 +22,12 @@ Vue.component('Pagination',Pagination)
 // reqCategoryList()
 
 import store from '@/store'
+//element的使用
+import { MessageBox ,Message} from 'element-ui'
+Vue.prototype.$msgbox = MessageBox
+Vue.prototype.$message = Message;
+Vue.prototype.$alert = MessageBox.alert;
+
 
 new Vue({
   el:"#app",
