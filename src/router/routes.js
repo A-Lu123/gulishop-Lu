@@ -1,16 +1,31 @@
-import Home from '@/pages/Home'
-import Login from '@/pages/Login'
-import Search from '@/pages/Search'
-import Register from '@/pages/Register'
-import Detail from '@/pages/Detail'
-import AddCartSuccess from '@/pages/AddCartSuccess'
-import ShopCart from '@/pages/ShopCart'
-import Trade from '@/pages/Trade'
-import Pay from '@/pages/Pay'
-import PaySuccess from '@/pages/PaySuccess'
-import Center from '@/pages/Center'
-import MyOrder from '@/pages/Center/MyOrder'
-import GroupOrder from '@/pages/Center/GroupOrder'
+const Home = () => import('@/pages/Home')
+const Login = () => import('@/pages/Login')
+const Search = () => import('@/pages/Search')
+const Register = () => import('@/pages/Register')
+const Detail = () => import('@/pages/Detail')
+const AddCartSuccess = () => import('@/pages/AddCartSuccess')
+const ShopCart = () => import('@/pages/ShopCart')
+const Trade = () => import('@/pages/Trade')
+const Pay = () => import('@/pages/Pay')
+const PaySuccess = () => import('@/pages/PaySuccess')
+const Center = () => import('@/pages/Center')
+const MyOrder = () => import('@/pages/Center/MyOrder')
+const GroupOrder = () => import('@/pages/Center/GroupOrder')
+
+// import Home from '@/pages/Home'
+// import Login from '@/pages/Login'
+// import Search from '@/pages/Search'
+// import Register from '@/pages/Register'
+// import Detail from '@/pages/Detail'
+// import AddCartSuccess from '@/pages/AddCartSuccess'
+// import ShopCart from '@/pages/ShopCart'
+// import Trade from '@/pages/Trade'
+// import Pay from '@/pages/Pay'
+// import PaySuccess from '@/pages/PaySuccess'
+// import Center from '@/pages/Center'
+// import MyOrder from '@/pages/Center/MyOrder'
+// import GroupOrder from '@/pages/Center/GroupOrder'
+import store from '@/store'
 export default [
     {
         path:'/center',
@@ -32,15 +47,36 @@ export default [
     },
     {
         path:'/trade',
-        component:Trade
+        component:Trade,
+        beforeEnter: (to, from, next) => {
+            if(from.path === '/shopcart'){
+                next()
+            }else{
+                next('/')
+            }
+        }
     },
     {
         path:'/pay',
-        component:Pay
+        component:Pay,
+        beforeEnter: (to, from, next) => {
+            if(from.path === '/trade'){
+                next()
+            }else{
+                next('/')
+            }
+        }
     },
     {
         path:'/paySuccess',
-        component:PaySuccess
+        component:PaySuccess,
+        beforeEnter: (to, from, next) => {
+            if(from.path === '/pay'){
+                next()
+            }else{
+                next('/')
+            }
+        }
     },
     {
         path:'/shopcart',
@@ -48,7 +84,17 @@ export default [
     },
     {
         path:'/addCartSuccess',
-        component:AddCartSuccess
+        component:AddCartSuccess,
+        beforeEnter: (to, from, next) => {
+            let skuNum = to.query.skuNum
+            let skunInfo = sessionStorage.getItem('SKUINFO_KEY')
+            if(skunInfo && skunInfo){
+                next()
+            }else{
+                next(false)
+            }
+
+        }
     },
     {
         path:'/detail/:goodsId',
@@ -63,7 +109,14 @@ export default [
         component:Login,
         meta:{
             isHide:true
-        }
+        },
+        beforeEnter: (to, from, next) => {
+            if(store.state.user.userInfo.name){
+                next('/')
+            }else{
+                next()
+            }
+        }   
     },
     {
         path:'/search/:keyword?',

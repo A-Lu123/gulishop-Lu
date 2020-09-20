@@ -94,12 +94,15 @@ export default {
     async changeCartNum(cart, disNum) {
 
       if (disNum + cart.skuNum < 1) {
+        // console.log(disNum,cart.skuNum );
         disNum = 1 - cart.skuNum;
       }
+
+      // console.log(disNum,cart.skuNum)
       try {
         await this.$store.dispatch("addOrUpdateShopCart", {
           skuId: cart.skuId,
-          skuNum: disNum,
+          skuNum:disNum,
         });
         this.getShopCartList();
       } catch (error) {

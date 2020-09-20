@@ -30,6 +30,16 @@ Vue.prototype.$alert = MessageBox.alert;
 Vue.use(Pagination)
 
 
+//图片懒加载
+import VueLazyload from 'vue-lazyload'
+import loading from '@/assets/images/1.gif'
+Vue.use(VueLazyload,{
+  loading
+})
+
+//验证规则
+import '@/utils/validate'
+
 new Vue({
   el:"#app",
   render: h => h(App),

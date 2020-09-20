@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 
 import routes from './routes'
+import store from '@/store'
 
 
 const originPush = VueRouter.prototype.push;
@@ -23,10 +24,25 @@ VueRouter.prototype.replace = function (location,onResolved,onRejected) {
     }
 }
 
-export default new VueRouter({
+let  router = new VueRouter({
     routes,
     scrollBehavior (to, from, savedPosition) {
         return { x: 0, y: 0 }
       }
 
+})
+export default router
+
+//全局前置守卫
+router.beforeEach((to,from,next)=>{
+    let targetPath = to.path
+    if(targetPath.indexOf('/pay') === 0 || targetPath.startsWith('/trade') || targetPath.startsWith('/center')){
+        if(store.state.user.userInfo.name){
+            next()
+        }else{
+            next('/login?redirect='+targetPath)
+        }
+    }else{
+        next()
+    }
 })
