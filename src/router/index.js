@@ -25,6 +25,7 @@ VueRouter.prototype.replace = function (location,onResolved,onRejected) {
 }
 
 let  router = new VueRouter({
+    model:'history',
     routes,
     scrollBehavior (to, from, savedPosition) {
         return { x: 0, y: 0 }
