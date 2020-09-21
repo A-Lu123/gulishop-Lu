@@ -23,11 +23,12 @@ Vue.component('SliderLoop',SliderLoop)
 
 import store from '@/store'
 //element的使用
-import {MessageBox,Message,Pagination} from 'element-ui'
+import {MessageBox,Message,Pagination,Button} from 'element-ui'
 Vue.prototype.$msgbox = MessageBox
 Vue.prototype.$message = Message;
 Vue.prototype.$alert = MessageBox.alert;
 Vue.use(Pagination)
+Vue.use(Button)
 
 
 //图片懒加载
